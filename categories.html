@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <title>What the Carp?!</title>
-  <meta name="author" content="Josh Carp">
+  <meta name="author" content="Joshua Carp">
 
     <link href="/atom.xml" type="application/atom+xml" rel="alternate"
         title="What the Carp?! Atom Feed" />
@@ -1218,7 +1218,7 @@ init_mathjax();
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="http://jmcarp.github.io/favicon.png" rel="icon">
+  <link href="http://jmcarp.github.io/favicon.ico" rel="icon">
   <link href="http://jmcarp.github.io/theme/css/main.css" media="screen, projection"
         rel="stylesheet" type="text/css">
   <script src="http://jmcarp.github.io/theme/js/modernizr-2.0.js"></script>
@@ -1232,7 +1232,7 @@ init_mathjax();
 </head><body>
   <header role="banner"><hgroup>
   <h1><a href="http://jmcarp.github.io/">What the Carp?!</a></h1>
-      <h2>Carp on Python</h2>
+      <h2>Carp on Code</h2>
   </hgroup></header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss">RSS</a></li>
@@ -1249,13 +1249,12 @@ init_mathjax();
 <ul class="main-navigation">
   <li><a href="http://jmcarp.github.io/">Blog</a></li>
       <li><a href="/archives.html">Archives</a></li>
-      <li><a href="http://joshuacarp.com/">Home Page</a></li>
             <!-- TODO: add categories here? -->
   </ul></nav>
   <div id="main">
     <div id="content">
       <ul>
-    <li><a href="http://jmcarp.github.io/category/misc.html">misc</a></li>
+    <li><a href="http://jmcarp.github.io/category/python.html">python</a></li>
 </ul>
       <aside class="sidebar">
   <section>
@@ -1270,14 +1269,14 @@ init_mathjax();
       
     <h1>Categories</h1>
     <ul id="recent_posts">
-              <li><a href="http://jmcarp.github.io/category/misc.html">misc</a></li>
+              <li><a href="http://jmcarp.github.io/category/python.html">python</a></li>
           </ul>
   </section>
    
 
   <section>
   <h1>Tags</h1>
-    </section>
+      <a href="http://jmcarp.github.io/tag/python.html">python</a>,      <a href="http://jmcarp.github.io/tag/pelican.html">pelican</a>    </section>
 
   
                     
@@ -1308,22 +1307,35 @@ init_mathjax();
     <script src="http://jmcarp.github.io/theme/js/github.js" type="text/javascript"> </script>
   </section>
   
-    <section>
+      <section>
+        <h1>Blogroll</h2>
+        <ul>
+                    <li><a href="http://hairycode.org/" target="_blank">Hairy Code</a></li>
+                    <li><a href="http://jakevdp.github.io/" target="_blank">Pythonic Perambulations</a></li>
+                </ul>
+    </section>
+  <section>
     <h1>Latest Tweets</h1>
+  <!--
   <ul id="tweets">
     <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
-      getTwitterFeed("whatthecarp", 3, false);
+      getTwitterFeed("whatthecarp", 5, false);
     });
   </script>
   <script src="/theme/js/twitter.js" type="text/javascript"> </script>
-        <a href="http://twitter.com/whatthecarp" class="twitter-follow-button" data-show-count="true">Follow @whatthecarp</a>
-  </section>
+  -->
+  <a class="twitter-timeline" href="https://twitter.com/whatthecarp" data-widget-id="353925355108720640">Tweets by @whatthecarp</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <!--
+      <p>Follow <a href="http://twitter.com/whatthecarp">@whatthecarp</a></p>
+    -->
+</section>
   <section class="googleplus">
   <h1>
-    <a href="https://plus.google.com/jm.carp?rel=author">
+    <a href="https://plus.google.com/106338986631778056978?rel=author">
       <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
       Google+
     </a>
@@ -1332,10 +1344,20 @@ init_mathjax();
 </aside>    </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Josh Carp -
+  Copyright &copy; 2013 - Joshua Carp -
   <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
 </p></footer>
-  	<script type="text/javascript">
+      <script type="text/javascript">
+	    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+	    try {
+	        var pageTracker = _gat._getTracker("UA-42287625-1");
+	    pageTracker._trackPageview();
+	    } catch(err) {}
+	</script>
+	<script type="text/javascript">
 	  	  var disqus_shortname = 'whatthecarp';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

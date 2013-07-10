@@ -1,51 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>What the Carp?!</title><link href="http://jmcarp.github.io/" rel="alternate"></link><link href="/atom.xml" rel="self"></link><id>http://jmcarp.github.io/</id><updated>2013-07-07T08:00:00-07:00</updated><entry><title>Hello, world! Getting started with Pelican and IPython Notebooks</title><link href="http://jmcarp.github.io/blog/2013/07/07/hello-world/" rel="alternate"></link><updated>2013-07-07T08:00:00-07:00</updated><author><name>Josh Carp</name></author><id>tag:jmcarp.github.io,2013-07-07:blog/2013/07/07/hello-world/</id><summary type="html">&lt;p&gt;I've been hearing great things about blogging with IPython notebooks from folks like Jake Vanderplas and Fernando Perez, so I thought I'd give it a try myself. Jake has put together some great tools for dropping notebooks into blog posts built using &lt;a href="http://blog.getpelican.com/"&gt;Pelican&lt;/a&gt;, and documented them in a &lt;a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/"&gt;blog post&lt;/a&gt;. So I figured getting a notebook into a blogpost would take a few minutes--half an hour, max.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>What the Carp?!</title><link href="http://jmcarp.github.io/" rel="alternate"></link><link href="/atom.xml" rel="self"></link><id>http://jmcarp.github.io/</id><updated>2013-07-07T08:00:00-07:00</updated><entry><title>Hello, world! Getting started with Pelican and IPython Notebooks</title><link href="http://jmcarp.github.io/blog/2013/07/07/hello-world/" rel="alternate"></link><updated>2013-07-07T08:00:00-07:00</updated><author><name>Joshua Carp</name></author><id>tag:jmcarp.github.io,2013-07-07:blog/2013/07/07/hello-world/</id><summary type="html">&lt;p&gt;I've been hearing great things about blogging with IPython notebooks from folks like Jake Vanderplas and Fernando Perez, so I thought I'd give it a try myself. Jake has put together some great tools for dropping notebooks into blog posts built using &lt;a href="http://blog.getpelican.com/"&gt;Pelican&lt;/a&gt;, and documented them in a &lt;a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/"&gt;blog post&lt;/a&gt;. So I figured getting a notebook into a blogpost would take a few minutes--half an hour, max.&lt;/p&gt;
 &lt;p&gt;Several hours later, I had a working example. Needless to say, getting this working was more involved than I had expected. I gather this is because IPython, the notebook converter (nbconvert), and the Pelican plugins are all somewhat in flux--meaning that tools that worked together a few weeks ago might be incompatible today. Once IPython hits 1.0 &lt;a href="https://github.com/ipython/ipython/wiki/Roadmap:-IPython"&gt;in a few weeks&lt;/a&gt;, hopefully these issues will be resolved.&lt;/p&gt;
 &lt;p&gt;Until then, here's a quick guide to setting up a Pelican blog with IPython notebooks, using the software available at this moment. To make things really simple, this guide will use Jake Vanderplas's blog, the source for which is available on &lt;a href="https://github.com/jakevdp/PythonicPerambulations"&gt;his GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I assume you'll use a virtual environment for your blog. I use Doug Hellman's virtual environment wrapper library, but the standard virtual environment package or pythonbrew are fine too. First things first: create a new environment and install the required packages.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;mkvirtualenvironment blog&lt;/li&gt;
-&lt;li&gt;sudo pip install tornado pyzmq ipython pelican markdown&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;I assume you'll use a virtual environment for your blog. I use Doug Hellman's &lt;a href="http://www.doughellmann.com/projects/virtualenvwrapper/"&gt;virtual environment wrapper library&lt;/a&gt;, but the standard virtual environment package or pythonbrew are fine too. First things first: create a new environment and install the required packages.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkvirtualenvironment blog
+sudo pip install tornado pyzmq ipython pelican markdown&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Next, clone the Pythonic Perambulations blog:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;git clone https://github.com/jakevdp/PythonicPerambulations.git&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/jakevdp/PythonicPerambulations.git&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;And the Octopress theme for Pelican, written by Maurizio Sambati:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;git clone https://github.com/duilio/pelican-octopress-theme.git&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/duilio/pelican-octopress-theme.git&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;We'll also need Jake Vanderplas's liquid tags plugin for Pelican. The plugin is in the liquid_tags branch of Jake's fork of the pelican-plugins repo, so we need to check it out after cloning the repo.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;git clone https://github.com/jakevdp/pelican-plugins.git&lt;/li&gt;
-&lt;li&gt;(cd pelican-plugins &amp;amp;&amp;amp; git checkout liquid_tags)&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/jakevdp/pelican-plugins.git
+(cd pelican-plugins &amp;amp;&amp;amp; git checkout liquid_tags)&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;We also need nbconvert to convert IPython notebooks to Markdown. To get this set up, clone the nbconvert repo, then add the nbconvert/utils and nbconvert/nbconvert1 directories to your pythonpath:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;git clone https://github.com/ipython/nbconvert.git&lt;/li&gt;
-&lt;li&gt;PYTHONPATH="/path/to/nbconvert/nbconvert/utils:$PYTHONPATH"&lt;/li&gt;
-&lt;li&gt;PYTHONPATH="/path/to/nbconvert/nbconvert1:$PYTHONPATH"&lt;/li&gt;
-&lt;li&gt;export PYTHONPATH&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/ipython/nbconvert.git
+PYTHONPATH="/path/to/nbconvert/nbconvert/utils:$PYTHONPATH"
+PYTHONPATH="/path/to/nbconvert/nbconvert1:$PYTHONPATH"
+export PYTHONPATH&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;We're almost done. Rendering IPython Notebooks requires a file called style.min.css, which the liquid tags plugin expects to live in .../site-packages/IPython/frontend/html/notebook/static/css. That file actually doesn't exist in the virtual environment at this point, but we can get a copy from the IPython repo on GitHub. To do this, we can clone the repo and copy the css file to the location where the plugin expects it to be:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;git clone https://github.com/ipython/ipython.git&lt;/li&gt;
-&lt;li&gt;cp ipython/IPython/html/static/style/style.min.css /path/to/venv/lib/python2.7/site-packages/IPython/frontend/html/notebook/static/css&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;git clone https://github.com/ipython/ipython.git
+cp ipython/IPython/html/static/style/style.min.css /path/to/venv/lib/python2.7/site-packages/IPython/frontend/html/notebook/static/css&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Next, we'll create a directory for the Pelican output:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;mkdir PythonicPerambulations/output&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;mkdir PythonicPerambulations/output&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;And update the paths in the Pelican configuration file, pelicanconf.py. Since we cloned jakevdp's blog, we'll also need to change the AUTHOR, SITENAME, and a bunch of other parameters in this file, but that can wait.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;THEME = '/path/to/octopress/pelican/theme'&lt;/li&gt;
-&lt;li&gt;PLUGIN_PATH = '/path/to/forked/pelican/plugins'&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;THEME = '/path/to/octopress/pelican/theme'
+PLUGIN_PATH = '/path/to/forked/pelican/plugins'&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Now everything should work. Let's see if it does:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;(cd output &amp;amp;&amp;amp; python -m SimpleHTTPServer)&lt;/li&gt;
-&lt;li&gt;Browse to localhost:8000&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;(cd output &amp;amp;&amp;amp; python -m SimpleHTTPServer)
+Browse to localhost:8000&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;And to prove that this works--at least using the current versions of the Pelican plugin, IPython, nbconvert, etc., as of this exact moment--here's a notebook:&lt;/p&gt;
 &lt;div class="ipynb"&gt;
 
@@ -90,4 +72,4 @@ Namespaces are one honking great idea -- let&amp;apos;s do more of those!
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</summary></entry></feed>
+&lt;/div&gt;</summary><category term="python"></category><category term="pelican"></category></entry></feed>

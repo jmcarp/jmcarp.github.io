@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <title>Hello, world! Getting started with Pelican and IPython Notebooks</title>
-  <meta name="author" content="Josh Carp">
+  <meta name="author" content="Joshua Carp">
 
     <link href="/atom.xml" type="application/atom+xml" rel="alternate"
         title="What the Carp?! Atom Feed" />
@@ -1218,7 +1218,7 @@ init_mathjax();
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="http://jmcarp.github.io/favicon.png" rel="icon">
+  <link href="http://jmcarp.github.io/favicon.ico" rel="icon">
   <link href="http://jmcarp.github.io/theme/css/main.css" media="screen, projection"
         rel="stylesheet" type="text/css">
   <script src="http://jmcarp.github.io/theme/js/modernizr-2.0.js"></script>
@@ -1232,7 +1232,7 @@ init_mathjax();
 </head><body>
   <header role="banner"><hgroup>
   <h1><a href="http://jmcarp.github.io/">What the Carp?!</a></h1>
-      <h2>Carp on Python</h2>
+      <h2>Carp on Code</h2>
   </hgroup></header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss">RSS</a></li>
@@ -1249,7 +1249,6 @@ init_mathjax();
 <ul class="main-navigation">
   <li><a href="http://jmcarp.github.io/">Blog</a></li>
       <li><a href="/archives.html">Archives</a></li>
-      <li><a href="http://joshuacarp.com/">Home Page</a></li>
             <!-- TODO: add categories here? -->
   </ul></nav>
   <div id="main">
@@ -1264,50 +1263,32 @@ init_mathjax();
   <div class="entry-content"><p>I've been hearing great things about blogging with IPython notebooks from folks like Jake Vanderplas and Fernando Perez, so I thought I'd give it a try myself. Jake has put together some great tools for dropping notebooks into blog posts built using <a href="http://blog.getpelican.com/">Pelican</a>, and documented them in a <a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/">blog post</a>. So I figured getting a notebook into a blogpost would take a few minutes--half an hour, max.</p>
 <p>Several hours later, I had a working example. Needless to say, getting this working was more involved than I had expected. I gather this is because IPython, the notebook converter (nbconvert), and the Pelican plugins are all somewhat in flux--meaning that tools that worked together a few weeks ago might be incompatible today. Once IPython hits 1.0 <a href="https://github.com/ipython/ipython/wiki/Roadmap:-IPython">in a few weeks</a>, hopefully these issues will be resolved.</p>
 <p>Until then, here's a quick guide to setting up a Pelican blog with IPython notebooks, using the software available at this moment. To make things really simple, this guide will use Jake Vanderplas's blog, the source for which is available on <a href="https://github.com/jakevdp/PythonicPerambulations">his GitHub</a>.</p>
-<p>I assume you'll use a virtual environment for your blog. I use Doug Hellman's virtual environment wrapper library, but the standard virtual environment package or pythonbrew are fine too. First things first: create a new environment and install the required packages.</p>
-<ul>
-<li>mkvirtualenvironment blog</li>
-<li>sudo pip install tornado pyzmq ipython pelican markdown</li>
-</ul>
+<p>I assume you'll use a virtual environment for your blog. I use Doug Hellman's <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtual environment wrapper library</a>, but the standard virtual environment package or pythonbrew are fine too. First things first: create a new environment and install the required packages.</p>
+<p><code>mkvirtualenvironment blog
+sudo pip install tornado pyzmq ipython pelican markdown</code></p>
 <p>Next, clone the Pythonic Perambulations blog:</p>
-<ul>
-<li>git clone https://github.com/jakevdp/PythonicPerambulations.git</li>
-</ul>
+<p><code>git clone https://github.com/jakevdp/PythonicPerambulations.git</code></p>
 <p>And the Octopress theme for Pelican, written by Maurizio Sambati:</p>
-<ul>
-<li>git clone https://github.com/duilio/pelican-octopress-theme.git</li>
-</ul>
+<p><code>git clone https://github.com/duilio/pelican-octopress-theme.git</code></p>
 <p>We'll also need Jake Vanderplas's liquid tags plugin for Pelican. The plugin is in the liquid_tags branch of Jake's fork of the pelican-plugins repo, so we need to check it out after cloning the repo.</p>
-<ul>
-<li>git clone https://github.com/jakevdp/pelican-plugins.git</li>
-<li>(cd pelican-plugins &amp;&amp; git checkout liquid_tags)</li>
-</ul>
+<p><code>git clone https://github.com/jakevdp/pelican-plugins.git
+(cd pelican-plugins &amp;&amp; git checkout liquid_tags)</code></p>
 <p>We also need nbconvert to convert IPython notebooks to Markdown. To get this set up, clone the nbconvert repo, then add the nbconvert/utils and nbconvert/nbconvert1 directories to your pythonpath:</p>
-<ul>
-<li>git clone https://github.com/ipython/nbconvert.git</li>
-<li>PYTHONPATH="/path/to/nbconvert/nbconvert/utils:$PYTHONPATH"</li>
-<li>PYTHONPATH="/path/to/nbconvert/nbconvert1:$PYTHONPATH"</li>
-<li>export PYTHONPATH</li>
-</ul>
+<p><code>git clone https://github.com/ipython/nbconvert.git
+PYTHONPATH="/path/to/nbconvert/nbconvert/utils:$PYTHONPATH"
+PYTHONPATH="/path/to/nbconvert/nbconvert1:$PYTHONPATH"
+export PYTHONPATH</code></p>
 <p>We're almost done. Rendering IPython Notebooks requires a file called style.min.css, which the liquid tags plugin expects to live in .../site-packages/IPython/frontend/html/notebook/static/css. That file actually doesn't exist in the virtual environment at this point, but we can get a copy from the IPython repo on GitHub. To do this, we can clone the repo and copy the css file to the location where the plugin expects it to be:</p>
-<ul>
-<li>git clone https://github.com/ipython/ipython.git</li>
-<li>cp ipython/IPython/html/static/style/style.min.css /path/to/venv/lib/python2.7/site-packages/IPython/frontend/html/notebook/static/css</li>
-</ul>
+<p><code>git clone https://github.com/ipython/ipython.git
+cp ipython/IPython/html/static/style/style.min.css /path/to/venv/lib/python2.7/site-packages/IPython/frontend/html/notebook/static/css</code></p>
 <p>Next, we'll create a directory for the Pelican output:</p>
-<ul>
-<li>mkdir PythonicPerambulations/output</li>
-</ul>
+<p><code>mkdir PythonicPerambulations/output</code></p>
 <p>And update the paths in the Pelican configuration file, pelicanconf.py. Since we cloned jakevdp's blog, we'll also need to change the AUTHOR, SITENAME, and a bunch of other parameters in this file, but that can wait.</p>
-<ul>
-<li>THEME = '/path/to/octopress/pelican/theme'</li>
-<li>PLUGIN_PATH = '/path/to/forked/pelican/plugins'</li>
-</ul>
+<p><code>THEME = '/path/to/octopress/pelican/theme'
+PLUGIN_PATH = '/path/to/forked/pelican/plugins'</code></p>
 <p>Now everything should work. Let's see if it does:</p>
-<ul>
-<li>(cd output &amp;&amp; python -m SimpleHTTPServer)</li>
-<li>Browse to localhost:8000</li>
-</ul>
+<p><code>(cd output &amp;&amp; python -m SimpleHTTPServer)
+Browse to localhost:8000</code></p>
 <p>And to prove that this works--at least using the current versions of the Pelican plugin, IPython, nbconvert, etc., as of this exact moment--here's a notebook:</p>
 <div class="ipynb">
 
@@ -1356,9 +1337,13 @@ Namespaces are one honking great idea -- let&apos;s do more of those!
     <footer>
       <p class="meta">
   <span class="byline author vcard">
-    Posted by <span class="fn">Josh Carp</span>
+    Posted by <span class="fn">Joshua Carp</span>
   </span>
-  <time datetime="2013-07-07T08:00:00" pubdate>Jul 07, 2013</time>  </p>      <div class="sharing">
+  <time datetime="2013-07-07T08:00:00" pubdate>Jul 07, 2013</time>    <span class="categories">
+        <a class="category" href="http://jmcarp.github.io/tag/python.html">python</a>
+        <a class="category" href="http://jmcarp.github.io/tag/pelican.html">pelican</a>
+      </span>
+  </p>      <div class="sharing">
     <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jmcarp.github.io/blog/2013/07/07/hello-world/" data-via="whatthecarp" data-counturl="http://jmcarp.github.io/blog/2013/07/07/hello-world/" >Tweet</a>
       <div class="g-plusone" data-size="medium"></div>
     </div>    </footer>
@@ -1369,7 +1354,7 @@ Namespaces are one honking great idea -- let&apos;s do more of those!
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
   </section>
   </div>
-<aside class="sidebar">
+      <aside class="sidebar">
   <section>
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
@@ -1382,14 +1367,14 @@ Namespaces are one honking great idea -- let&apos;s do more of those!
       
     <h1>Categories</h1>
     <ul id="recent_posts">
-              <li><a href="http://jmcarp.github.io/category/misc.html">misc</a></li>
+              <li><a href="http://jmcarp.github.io/category/python.html">python</a></li>
           </ul>
   </section>
    
 
   <section>
   <h1>Tags</h1>
-    </section>
+      <a href="http://jmcarp.github.io/tag/python.html">python</a>,      <a href="http://jmcarp.github.io/tag/pelican.html">pelican</a>    </section>
 
   
                     
@@ -1420,94 +1405,35 @@ Namespaces are one honking great idea -- let&apos;s do more of those!
     <script src="http://jmcarp.github.io/theme/js/github.js" type="text/javascript"> </script>
   </section>
   
-    <section>
+      <section>
+        <h1>Blogroll</h2>
+        <ul>
+                    <li><a href="http://hairycode.org/" target="_blank">Hairy Code</a></li>
+                    <li><a href="http://jakevdp.github.io/" target="_blank">Pythonic Perambulations</a></li>
+                </ul>
+    </section>
+  <section>
     <h1>Latest Tweets</h1>
+  <!--
   <ul id="tweets">
     <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
-      getTwitterFeed("whatthecarp", 3, false);
+      getTwitterFeed("whatthecarp", 5, false);
     });
   </script>
   <script src="/theme/js/twitter.js" type="text/javascript"> </script>
-        <a href="http://twitter.com/whatthecarp" class="twitter-follow-button" data-show-count="true">Follow @whatthecarp</a>
-  </section>
-  <section class="googleplus">
-  <h1>
-    <a href="https://plus.google.com/jm.carp?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
+  -->
+  <a class="twitter-timeline" href="https://twitter.com/whatthecarp" data-widget-id="353925355108720640">Tweets by @whatthecarp</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <!--
+      <p>Follow <a href="http://twitter.com/whatthecarp">@whatthecarp</a></p>
+    -->
 </section>
-</aside>      <aside class="sidebar">
-  <section>
-    <h1>Recent Posts</h1>
-    <ul id="recent_posts">
-            <li class="post">
-          <a href="http://jmcarp.github.io/blog/2013/07/07/hello-world/">Hello, world! Getting started with Pelican and IPython Notebooks</a>
-      </li>
-          </ul>
-  </section>
-    <section>
-      
-    <h1>Categories</h1>
-    <ul id="recent_posts">
-              <li><a href="http://jmcarp.github.io/category/misc.html">misc</a></li>
-          </ul>
-  </section>
-   
-
-  <section>
-  <h1>Tags</h1>
-    </section>
-
-  
-                    
-  <section>
-    <h1>GitHub Repos</h1>
-    <ul id="gh_repos">
-      <li class="loading">Status updating...</li>
-    </ul>
-          <a href="https://github.com/jmcarp">@jmcarp</a> on GitHub
-        <script type="text/javascript">
-      $.domReady(function(){
-          if (!window.jXHR){
-              var jxhr = document.createElement('script');
-              jxhr.type = 'text/javascript';
-              jxhr.src = 'http://jmcarp.github.io/theme/js/jXHR.js';
-              var s = document.getElementsByTagName('script')[0];
-              s.parentNode.insertBefore(jxhr, s);
-          }
-
-          github.showRepos({
-              user: 'jmcarp',
-              count: 5,
-              skip_forks: true,
-              target: '#gh_repos'
-          });
-      });
-    </script>
-    <script src="http://jmcarp.github.io/theme/js/github.js" type="text/javascript"> </script>
-  </section>
-  
-    <section>
-    <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("whatthecarp", 3, false);
-    });
-  </script>
-  <script src="/theme/js/twitter.js" type="text/javascript"> </script>
-        <a href="http://twitter.com/whatthecarp" class="twitter-follow-button" data-show-count="true">Follow @whatthecarp</a>
-  </section>
   <section class="googleplus">
   <h1>
-    <a href="https://plus.google.com/jm.carp?rel=author">
+    <a href="https://plus.google.com/106338986631778056978?rel=author">
       <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
       Google+
     </a>
@@ -1516,10 +1442,20 @@ Namespaces are one honking great idea -- let&apos;s do more of those!
 </aside>    </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Josh Carp -
+  Copyright &copy; 2013 - Joshua Carp -
   <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
 </p></footer>
-  	<script type="text/javascript">
+      <script type="text/javascript">
+	    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+	    try {
+	        var pageTracker = _gat._getTracker("UA-42287625-1");
+	    pageTracker._trackPageview();
+	    } catch(err) {}
+	</script>
+	<script type="text/javascript">
 	            var disqus_identifier = 'http://jmcarp.github.io/blog/2013/07/07/hello-world/';
           var disqus_url = 'http://jmcarp.github.io/blog/2013/07/07/hello-world/';
 	  var disqus_title = 'Hello, world! Getting started with Pelican and IPython Notebooks';
